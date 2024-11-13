@@ -3,7 +3,8 @@ const chai = require("chai");
 let expect = chai.expect; // Using expect for consistency
 const { app, server } = require("../server"); // Import both app and server
 const { describe, it, before, after } = require("mocha"); // Ensure these are available
-
+const ConvertHandler = require("../controllers/convertHandler");
+const convertHandler = new ConvertHandler();
 chai.use(chaiHttp);
 
 process.env.PORT = 3001;
@@ -86,25 +87,61 @@ describe("/api/convert endpoint", function () {
 
   // Unit Tests: Unit Validation
   describe("Unit Test: convertHandler should validate units correctly", function () {
-    it("should recognize 'gal' as a valid unit", function () {
-      const input = "4gal";
-      expect(input.toLowerCase().endsWith("gal")).to.be.true;
-    });
+    const validUnits = ["gal", "L", "mi", "km", "lbs", "kg"];
 
-    it("should recognize 'l' as a valid unit", function () {
-      const input = "4l";
-      expect(
-        input.toLowerCase().endsWith("l") &&
-          !input.toLowerCase().endsWith("gal")
-      ).to.be.true;
+    it("should correctly read each valid input unit", function () {
+      validUnits.forEach((unit) => {
+        const input = `5${unit}`;
+        const unitRead = input.match(/[a-zA-Z]+$/)[0]; // Extract and normalize the unit
+        expect(validUnits.includes(unitRead)).to.be.true;
+      });
     });
 
     it("should return an error for invalid units", function () {
       const input = "5xyz";
-      const isValid =
-        input.toLowerCase().endsWith("gal") ||
-        input.toLowerCase().endsWith("l");
+      const isValid = input.toLowerCase().endsWith(validUnits);
       expect(isValid).to.be.false;
+    });
+
+    it("should return an error for invalid input unit", function () {
+      const input = "5xyz";
+      const validUnits = ["gal", "L", "mi", "km", "lbs", "kg"];
+      const unit = input.match(/[a-zA-Z]+$/)[0].toLowerCase();
+      expect(validUnits.includes(unit)).to.be.false;
+    });
+
+    it("should return the correct return unit for each valid input unit", function () {
+      const testCases = {
+        gal: "L",
+        L: "gal",
+        mi: "km",
+        km: "mi",
+        lbs: "kg",
+        kg: "lbs",
+      };
+
+      Object.keys(testCases).forEach((initUnit) => {
+        const expectedReturnUnit = testCases[initUnit];
+        const actualReturnUnit = convertHandler.getReturnUnit(initUnit);
+        expect(actualReturnUnit).to.equal(expectedReturnUnit);
+      });
+    });
+
+    it("should correctly return the spelled-out string unit for each valid input unit", function () {
+      const unitMap = {
+        gal: "gallons",
+        L: "liters",
+        mi: "miles",
+        km: "kilometers",
+        lbs: "pounds",
+        kg: "kilograms",
+      };
+
+      Object.keys(unitMap).forEach((unit) => {
+        const spelledOut = unitMap[unit];
+        const expectedOutput = convertHandler.spellOutUnit(unit);
+        expect(expectedOutput).to.equal(spelledOut);
+      });
     });
   });
 

@@ -1,6 +1,6 @@
 class ConvertHandler {
   constructor() {
-    this.validUnits = ["gal", "l", "miles", "km", "lbs", "kg"];
+    this.validUnits = ["gal", "l", "mi", "km", "lbs", "kg"];
   }
 
   // Extract numeric part of the input (supports fractions, decimals, and negative numbers)
@@ -44,8 +44,8 @@ class ConvertHandler {
     const unitMap = {
       gal: "L",
       L: "gal",
-      miles: "km",
-      km: "miles",
+      mi: "km",
+      km: "mi",
       lbs: "kg",
       kg: "lbs",
     };
@@ -57,7 +57,7 @@ class ConvertHandler {
     const unitMap = {
       gal: "gallons",
       L: "liters",
-      miles: "miles",
+      mi: "miles",
       km: "kilometers",
       lbs: "pounds",
       kg: "kilograms",
@@ -74,7 +74,7 @@ class ConvertHandler {
     const conversionMap = {
       gal: initNum * galToL,
       L: initNum / galToL,
-      miles: initNum * miToKm,
+      mi: initNum * miToKm,
       km: initNum / miToKm,
       lbs: initNum * lbsToKg,
       kg: initNum / lbsToKg,
