@@ -80,7 +80,7 @@ class ConvertHandler {
       kg: initNum / lbsToKg,
     };
 
-    return conversionMap[initUnit];
+    return parseFloat(conversionMap[initUnit]);
   }
 
   // Returns a string with the conversion result
