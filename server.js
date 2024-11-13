@@ -73,9 +73,9 @@ app.get("/api/convert", (req, res) => {
 
     // Respond with JSON result
     res.status(200).json({
-      initNum: num,
+      initNum: num.toFixed(5),
       initUnit: unitName,
-      returnNum: convertedValue,
+      returnNum: convertedValue.toFixed(5),
       returnUnit: returnUnit,
       string: result,
     });
