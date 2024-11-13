@@ -3,11 +3,9 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 require("dotenv").config();
 
-const apiRoutes = require("./routes/api.js");
-const fccTestingRoutes = require("./routes/fcctesting.js");
-const runner = require("./test-runner");
-const ConvertHandler = require("./controllers/convertHandler"); // Import ConvertHandler
-const convertHandler = new ConvertHandler(); // Create an instance of ConvertHandler
+const apiRoutes = require("./routes/api.js"); // Import API routes
+const fccTestingRoutes = require("./routes/fcctesting.js"); // Import FCC testing routes
+const runner = require("./test-runner"); // Import test runner
 
 let app = express();
 
@@ -24,63 +22,8 @@ app.route("/").get(function (req, res) {
 // For FCC testing purposes
 fccTestingRoutes(app);
 
-// Routing for API
+// Routing for API (use the routes defined in api.js)
 apiRoutes(app);
-
-// API conversion route
-app.get("/api/convert", (req, res) => {
-  console.log("req.query:", req.query); // Log the full query object
-
-  const { input } = req.query;
-
-  if (input) {
-    // Get numeric input and unit from the input
-    const num = convertHandler.getNum(input);
-    const unitName = convertHandler.getUnit(input);
-
-    if (num && !unitName) {
-      console.log("Error: Invalid unit");
-      return res.status(400).json({ error: "Invalid unit" });
-    }
-
-    if (!input || num == NaN || unitName == null) {
-      return res.status(400).json({ error: "Invalid input format" });
-    }
-    // Debug logs to see extracted inputs
-    console.log(`Extracted number: ${num}, Extracted unit: ${unitName}`);
-
-    // Validate the extracted unit
-
-    // Validate the numeric part
-    if (num === null || isNaN(num)) {
-      console.log("Error: Invalid number format");
-      return res.status(400).json({ error: "Invalid number format" });
-    }
-
-    // Get the converted unit
-    const returnUnit = convertHandler.getReturnUnit(unitName);
-
-    // Perform the conversion
-    const convertedValue = convertHandler.convert(num, unitName);
-
-    // Create the result string
-    const result = convertHandler.getString(
-      num,
-      unitName,
-      convertedValue,
-      returnUnit
-    );
-
-    // Respond with JSON result
-    res.status(200).json({
-      initNum: num,
-      initUnit: unitName,
-      returnNum: convertedValue,
-      returnUnit: returnUnit,
-      string: result,
-    });
-  }
-});
 
 // 404 Not Found Middleware
 app.use(function (req, res, next) {
@@ -90,7 +33,7 @@ app.use(function (req, res, next) {
 // Export app and server for testing purposes
 let server;
 if (process.env.NODE_ENV !== "test") {
-  const port = 3002;
+  const port = 3002; // Define port
   server = app.listen(port, function () {
     console.log("Listening on port " + port);
     if (process.env.NODE_ENV === "test") {
