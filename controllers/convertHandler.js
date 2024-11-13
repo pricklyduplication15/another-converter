@@ -20,15 +20,16 @@ function ConvertHandler() {
   // Modify getUnit to ensure consistency in cases
   this.getUnit = function (input) {
     const unitRegex = /[a-zA-Z]+$/; // Ensure it captures alphabetic unit at the end
-    const result = input.match(unitRegex);
-    const validUnits = ["gal", "L", "miles", "km", "lbs", "kg"];
-    if (!result || !validUnits.includes(result[0].toLowerCase())) {
+    const result = input.match(unitRegex); // Match the unit part of the input
+    const validUnits = ["gal", "L", "miles", "km", "lbs", "kg"]; // List of valid units
+
+    // If no unit is found or it's not valid, return null
+    if (!result || !validUnits.includes(result[0])) {
       return null;
     }
-    if (result == "L") {
-      return result;
-    }
-    return result[0].toLowerCase(); // Return lowercase for consistency
+
+    // Return the unit as it is, but ensure 'L' stays as 'L' while others are lowercase
+    return result[0] === "L" ? "L" : result[0].toLowerCase();
   };
 
   // Returns the return unit for the conversion
