@@ -36,52 +36,52 @@ apiRoutes(app);
 app.get("/api/convert", (req, res) => {
   const input = req.query.input; // Get the 'input' query parameter
   if (!input) {
-    return res.status(400).send({ error: "Input parameter is required" });
+    return res.status(400).json({ error: "Input parameter is required" }); // Changed to res.json
   }
 
   const value = parseFloat(input); // Extract numeric value from the input
   if (isNaN(value)) {
-    return res.status(400).send({ error: "Invalid input format" }); // Change this message to match test expectation
+    return res.status(400).json({ error: "Invalid input format" }); // Changed to res.json
   }
 
   let result;
   if (input.toLowerCase().endsWith("gal")) {
     result = galToLiters(value);
-    res.send({ input, unit: "gal", result });
+    return res.json({ input, unit: "gal", result }); // Changed to res.json
   } else if (
     input.toLowerCase().endsWith("l") &&
     !input.toLowerCase().endsWith("gal")
   ) {
     result = litToGal(value);
-    res.send({ input, unit: "liters", result });
+    return res.json({ input, unit: "liters", result }); // Changed to res.json
   } else if (
     input.toLowerCase().endsWith("miles") &&
     !input.toLowerCase().endsWith("km")
   ) {
     result = milesToKm(value);
-    res.send({ input, unit: "miles", result });
+    return res.json({ input, unit: "miles", result }); // Changed to res.json
   } else if (
     input.toLowerCase().endsWith("km") &&
     !input.toLowerCase().endsWith("miles")
   ) {
     result = kmToMiles(value);
-    res.send({ input, unit: "km", result });
+    return res.json({ input, unit: "km", result }); // Changed to res.json
   } else if (
     input.toLowerCase().endsWith("lbs") &&
     !input.toLowerCase().endsWith("kg")
   ) {
     result = poundsToKg(value);
-    res.send({ input, unit: "pounds", result });
+    return res.json({ input, unit: "pounds", result }); // Changed to res.json
   } else if (
     input.toLowerCase().endsWith("kg") &&
     !input.toLowerCase().endsWith("pounds")
   ) {
     result = kgToPounds(value);
-    res.send({ input, unit: "kg", result });
+    return res.json({ input, unit: "kg", result }); // Changed to res.json
   } else {
-    return res.status(400).send({
+    return res.status(400).json({
       error: 'Invalid unit. Use "gal" for gallons or "l" for liters.',
-    });
+    }); // Changed to res.json
   }
 });
 
