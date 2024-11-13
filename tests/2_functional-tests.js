@@ -65,13 +65,13 @@ describe("API Tests", function () {
             const expectedConversion = 1.056688;
 
             console.log("Actual response:", res.body);
-            console.log("Expected initUnit:", "l");
+            console.log("Expected initUnit:", "L");
             console.log("Expected returnUnit:", "gal");
             console.log("Expected returnNum (close to):", expectedConversion);
 
             expect(res).to.have.status(200);
             expect(res.body).to.be.an("object");
-            expect(res.body).to.have.property("initUnit", "l");
+            expect(res.body).to.have.property("initUnit", "L");
             expect(res.body).to.have.property("returnUnit", "gal");
             expect(res.body.returnNum).to.be.closeTo(expectedConversion, 0.01);
             done();

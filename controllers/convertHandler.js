@@ -21,9 +21,12 @@ function ConvertHandler() {
   this.getUnit = function (input) {
     const unitRegex = /[a-zA-Z]+$/; // Ensure it captures alphabetic unit at the end
     const result = input.match(unitRegex);
-    const validUnits = ["gal", "l", "miles", "km", "lbs", "kg"];
+    const validUnits = ["gal", "L", "miles", "km", "lbs", "kg"];
     if (!result || !validUnits.includes(result[0].toLowerCase())) {
       return null;
+    }
+    if (result == "L") {
+      return result;
     }
     return result[0].toLowerCase(); // Return lowercase for consistency
   };
@@ -33,7 +36,6 @@ function ConvertHandler() {
     const unitMap = {
       gal: "L",
       L: "gal",
-      l: "gal",
       miles: "km",
       km: "miles",
       lbs: "kg",
@@ -47,7 +49,6 @@ function ConvertHandler() {
     const unitMap = {
       gal: "gallons",
       L: "liters",
-      l: "liters",
       miles: "miles",
       km: "kilometers",
       lbs: "pounds",
@@ -64,7 +65,6 @@ function ConvertHandler() {
     const conversionMap = {
       gal: initNum * galToL,
       L: initNum / galToL,
-      l: initNum / galToL,
       miles: initNum * miToKm,
       km: initNum / miToKm,
       lbs: initNum * lbsToKg,
