@@ -111,16 +111,16 @@ describe("/api/convert endpoint", function () {
   // Unit Tests: Unit Conversions
   describe("Unit Test: convertHandler unit conversions", function () {
     it("should correctly convert gal to L", function () {
-      const input = 4;
+      const input = "4gal";
       const conversionFactor = 3.78541;
-      const expectedOutput = input * conversionFactor;
+      const expectedOutput = parseFloat(input) * conversionFactor;
       expect(expectedOutput).to.be.closeTo(15.14164, 0.01);
     });
 
     it("should correctly convert L to gal", function () {
-      const input = 4;
+      const input = "4L";
       const conversionFactor = 0.264172;
-      const expectedOutput = input * conversionFactor;
+      const expectedOutput = parseFloat(input) * conversionFactor;
       expect(expectedOutput).to.be.closeTo(1.056688, 0.01);
     });
 
