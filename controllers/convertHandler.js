@@ -80,9 +80,7 @@ class ConvertHandler {
       kg: initNum / lbsToKg,
     };
 
-    return (
-      Math.round((conversionMap[initUnit] + Number.EPSILON) * 100000) / 100000
-    );
+    return conversionMap[initUnit];
   }
 
   // Returns a string with the conversion result
