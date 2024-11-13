@@ -34,7 +34,7 @@ module.exports = function (app) {
     }
 
     // List of valid units (including 'L' for liters)
-    const validUnits = ["gal", "L", "miles", "km", "lbs", "kg"];
+    const validUnits = ["gal", "L", "mi", "km", "lbs", "kg"];
     console.log("Valid units:", validUnits);
 
     // Check if the unit is valid and handle 'L' as a special case
