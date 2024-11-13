@@ -10,12 +10,12 @@ const runner = require("./test-runner");
 let app = express();
 
 // Conversion functions
-const galToLiters = (gallons) => gallons * 3.78541;
-const litToGal = (liters) => liters * 0.264172;
-const milesToKm = (miles) => miles * 1.60934;
-const kmToMiles = (km) => km * 0.621371;
-const poundsToKg = (pounds) => pounds * 0.453592;
-const kgToPounds = (kg) => kg * 2.20462;
+const galToLiters = (gallons) => (gallons * 3.78541).toFixed(5);
+const litToGal = (liters) => (liters * 0.264172).toFixed(5);
+const milesToKm = (miles) => (miles * 1.60934).toFixed(5);
+const kmToMiles = (km) => (km * 0.621371).toFixed(5);
+const poundsToKg = (pounds) => (pounds * 0.453592).toFixed(5);
+const kgToPounds = (kg) => (kg * 2.20462).toFixed(5);
 
 app.use("/public", express.static(process.cwd() + "/public"));
 app.use(cors({ origin: "*" })); // For FCC testing purposes only
@@ -41,7 +41,7 @@ app.get("/api/convert", (req, res) => {
 
   const value = parseFloat(input); // Extract numeric value from the input
   if (isNaN(value)) {
-    return res.status(400).send({ error: "Invalid input format" });
+    return res.status(400).send({ error: "Invalid input format" }); // Change this message to match test expectation
   }
 
   let result;

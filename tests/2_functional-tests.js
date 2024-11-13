@@ -51,10 +51,11 @@ describe("Functional Tests", function () {
           expect(res.body).to.be.an("object");
           expect(res.body).to.have.property("input", "4gal");
           expect(res.body).to.have.property("unit", "gal");
-          expect(res.body).to.have.property("result").that.is.a("number");
+          expect(res.body).to.have.property("result").that.is.a("string");
 
           const expectedConversion = 15.14164;
-          expect(res.body.result).to.be.closeTo(expectedConversion, 0.01);
+          const actualResult = parseFloat(res.body.result);
+          expect(actualResult).to.be.closeTo(expectedConversion, 0.01); // Compare as number
           done();
         });
     });
@@ -68,10 +69,11 @@ describe("Functional Tests", function () {
           expect(res.body).to.be.an("object");
           expect(res.body).to.have.property("input", "4L");
           expect(res.body).to.have.property("unit", "liters");
-          expect(res.body).to.have.property("result").that.is.a("number");
+          expect(res.body).to.have.property("result").that.is.a("string");
 
           const expectedConversion = 1.056688;
-          expect(res.body.result).to.be.closeTo(expectedConversion, 0.01);
+          const actualResult = parseFloat(res.body.result);
+          expect(actualResult).to.be.closeTo(expectedConversion, 0.01);
           done();
         });
     });
@@ -85,11 +87,12 @@ describe("Functional Tests", function () {
           expect(res.body).to.be.an("object");
           expect(res.body).to.have.property("input", "5miles");
           expect(res.body).to.have.property("unit", "miles");
-          expect(res.body).to.have.property("result").that.is.a("number");
+          expect(res.body).to.have.property("result").that.is.a("string");
 
           const expectedConversion = 8.04672;
-          console.log("Actual Conversion:", res.body.result); // Log the actual conversion result
-          expect(res.body.result).to.be.closeTo(expectedConversion, 0.01); // Check if the result is within 0.01 of expected value
+          const actualResult = parseFloat(res.body.result);
+          console.log("Actual Conversion:", actualResult); // Log the actual conversion result
+          expect(actualResult).to.be.closeTo(expectedConversion, 0.01); // Compare as number
           done();
         });
     });
@@ -103,10 +106,11 @@ describe("Functional Tests", function () {
           expect(res.body).to.be.an("object");
           expect(res.body).to.have.property("input", "5km");
           expect(res.body).to.have.property("unit", "km");
-          expect(res.body).to.have.property("result").that.is.a("number");
+          expect(res.body).to.have.property("result").that.is.a("string");
 
           const expectedConversion = 3.106855;
-          expect(res.body.result).to.be.closeTo(expectedConversion, 0.01);
+          const actualResult = parseFloat(res.body.result);
+          expect(actualResult).to.be.closeTo(expectedConversion, 0.01);
           done();
         });
     });
@@ -120,10 +124,11 @@ describe("Functional Tests", function () {
           expect(res.body).to.be.an("object");
           expect(res.body).to.have.property("input", "5lbs");
           expect(res.body).to.have.property("unit", "pounds");
-          expect(res.body).to.have.property("result").that.is.a("number");
+          expect(res.body).to.have.property("result").that.is.a("string");
 
           const expectedConversion = 2.26796;
-          expect(res.body.result).to.be.closeTo(expectedConversion, 0.01);
+          const actualResult = parseFloat(res.body.result);
+          expect(actualResult).to.be.closeTo(expectedConversion, 0.01);
           done();
         });
     });
@@ -137,10 +142,11 @@ describe("Functional Tests", function () {
           expect(res.body).to.be.an("object");
           expect(res.body).to.have.property("input", "5kg");
           expect(res.body).to.have.property("unit", "kg");
-          expect(res.body).to.have.property("result").that.is.a("number");
+          expect(res.body).to.have.property("result").that.is.a("string");
 
           const expectedConversion = 11.0231;
-          expect(res.body.result).to.be.closeTo(expectedConversion, 0.01);
+          const actualResult = parseFloat(res.body.result);
+          expect(actualResult).to.be.closeTo(expectedConversion, 0.01);
           done();
         });
     });
