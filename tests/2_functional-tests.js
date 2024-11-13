@@ -2,6 +2,7 @@ const chaiHttp = require("chai-http");
 const chai = require("chai");
 let expect = chai.expect; // Using expect for consistency
 const { app, server } = require("../server"); // Import both app and server
+const { describe, it, before, after } = require("mocha"); // Ensure these are available
 
 chai.use(chaiHttp);
 
